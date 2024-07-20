@@ -1,0 +1,10 @@
+#listbox:hover{
+    box-shadow: 0.2px 0.2px 2px black; 
+    background: #b2bec3;
+    color: #fff;
+}
+
+#listbox{
+    margin-bottom: 5px;
+}
+
