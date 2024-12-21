@@ -159,7 +159,7 @@ export default function ShowProductsByCategory(){
 
 </Grid>
         </div>
-        {filterDrawer()}
+        {filterDrawer()} 
             </div>
 
             <Divider /> 

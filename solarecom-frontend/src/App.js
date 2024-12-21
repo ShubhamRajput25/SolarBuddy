@@ -43,7 +43,7 @@ function App() {
     <div >
     <Router>
       <Routes>
-      <Route element={<Home />} path='/home'/>
+      <Route element={<Home />} path='/home'/>  
       <Route element={<Cart />} path='/cart'/>
       <Route element={<ShowProductDetails />} path='/showproductdetails'/>
       <Route element={<ShowProductsByCategory />} path='/showproductsbycategory/:pattern'/>

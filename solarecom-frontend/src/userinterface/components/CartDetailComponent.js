@@ -27,6 +27,8 @@ export default function CartDetailComponent(props) {
     const matches2=useMediaQuery(theme.breakpoints.down('sm'))
     const matches3=useMediaQuery(theme.breakpoints.down(450))
 
+    var product = JSON.parse(localStorage.getItem('WishList'))
+
     const handleChange=(v,item)=>{
         if(v>=1)
         { item['qty']=v
@@ -39,6 +41,17 @@ export default function CartDetailComponent(props) {
        props.setPageRefresh(!props.pageRefresh)
       }
 
+      const handleWishListChange = (item, e) => {
+        if (e) {
+            dispatch({ type: 'ADD_WISHLIST', payload: [item.productdetailid, item] })
+            props.setPageRefresh(!props.pageRefresh)
+        } else {
+
+            dispatch({ type: 'DELETE_WISHLIST', payload: [item.productdetailid] })
+            props.setPageRefresh(!props.pageRefresh)
+        }
+    }
+
       const handleClear=(item)=>{
         dispatch({type:"DELETE_CART",payload:[item.productdetailid]})
         props.setPageRefresh(!props.pageRefresh)
@@ -46,6 +59,7 @@ export default function CartDetailComponent(props) {
 
     const showProducts = () => {
         return row.map((item) => {
+            let isChecked = product ? product[item?.productdetailid] ? true : false : false
     return <div style={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center',background:'#fff',position:'relative'}}>
     <div style={{width:'90%',height:'90%',display:'flex',flexDirection:'column',marginBottom:'1%',marginTop:'1%'}}>
 <div style={{position:'absolute',right:"1%"}} ><ClearIcon onClick={()=>handleClear(item)} /></div>
@@ -67,7 +81,7 @@ export default function CartDetailComponent(props) {
     </span>
     
     </div>
-    <div style={{width:130,padding:'1%',border:'1px solid #dcdde1',marginTop:'2%',display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>   <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} style={{width:10,height:10}} /> <div> Save for later</div> </div>
+    <div style={{width:130,padding:'1%',border:'1px solid #dcdde1',marginTop:'2%',display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>  {isChecked ? <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} onChange={(event) => handleWishListChange(item, event.target.checked)} checked={true} style={{width:10,height:10}} /> : <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} onChange={(event) => handleWishListChange(item, event.target.checked)} style={{width:10,height:10}}/>} <div> Save for later</div> </div>
         </Grid>
     </Grid>
 
